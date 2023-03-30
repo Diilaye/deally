@@ -6,6 +6,11 @@ exports.store = async (req, res ,next ) => {
 
   
     
+    
+    
+    try {
+
+
     const file =  filesModel();
     
     file.url = await  base64(req.body.image);
@@ -20,24 +25,6 @@ exports.store = async (req, res ,next ) => {
         data: saveFile,
         statusCode: 201
     })
-    
-    try {
-
-
-        const file =  filesModel();
-    
-        file.url = await  base64(req.body.image);
-        
-        file.user = req.user.id;
-    
-        const saveFile = await  file.save();
-    
-        return res.json({
-            message: 'Fichier crée avec succes',
-            status: 'OK',
-            data: saveFile,
-            statusCode: 201
-        })
     } catch (error) {
         res.json({
             message: 'Erreur creation',
