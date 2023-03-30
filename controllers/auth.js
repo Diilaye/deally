@@ -108,7 +108,7 @@ exports.store = async (req , res , next) => {
     //   authSave.tokenStream = tokenStream ;
 
           
-    authSave.save().then(auth => {
+    return authSave.save().then(auth => {
         res.json({
             message: 'Client creer avec succes',
             status: 'OK',
