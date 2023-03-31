@@ -79,7 +79,7 @@ exports.store = async (req , res , next) => {
 
         auth.nameShop = req.body.nameShop ;
 
-        // auth.address = [req.body.address] ;
+        auth.address = [req.body.address] ;
 
         auth.sexe = req.body.sexe ;
     
