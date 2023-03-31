@@ -53,6 +53,11 @@ const UserModel = new Schema({
         default: 'Ltd'
     },
 
+    posteSignataire: {
+        type: String,
+        default  :''
+    },
+
     NameofIDCard  : {       
         type : String,
         enum: ['National', 'Voter', 'Driver', 'Passport', ],

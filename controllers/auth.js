@@ -55,6 +55,8 @@ exports.store = async (req , res , next) => {
 
         auth.lastName = req.body.lastName ;
 
+        auth.posteSignataire = req.body.posteSignataire ;
+
         auth.avatar = req.body.avatar ;
 
         auth.cacName = req.body.cacName ;
