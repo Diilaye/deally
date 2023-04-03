@@ -643,12 +643,14 @@ exports.auth = async  ( req, res ,_ ) => {
                 role_user : user.role , 
                 phone_user : user.phone
             }, process.env.JWT_SECRET, { expiresIn: '8784h' });
+            user.token = token  ;
+            await  user.save();
             return res.json({
                 message: 'Connection réussssi',
                 status: 'OK',
                 data: {
                     user : user ,
-                    token : user.token
+                    token : token
                 },
                 statusCode: 200
             });
