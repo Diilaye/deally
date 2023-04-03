@@ -627,22 +627,27 @@ exports.getUsine = async (req, res, next) => {
 }
 
 exports.auth = async  ( req, res ,_ ) => {
-    if (req.body.phone != undefined) return authModel.findOne({
-        phone : req.body.phone
-    }).then(result => {
-        console.log(result);
-        if (bcrytjs.compareSync(req.body.password, result.password)) {
+
+   try {
+    if(req.body.phone != undefined) {
+
+        const user = await authModel.findOne({
+            phone : req.body.phone
+
+        }).exec();
+
+        if (bcrytjs.compareSync(req.body.password, user.password)) {
             const token = jwt.sign({
-                id_user: result.id,
-                role_user : result.role , 
-                phone_user : result.phone
+                id_user: user.id,
+                role_user : user.role , 
+                phone_user : user.phone
             }, process.env.JWT_SECRET, { expiresIn: '8784h' });
             return res.json({
                 message: 'Connection réussssi',
                 status: 'OK',
                 data: {
-                    user : result ,
-                    token : result.token
+                    user : user ,
+                    token : user.token
                 },
                 statusCode: 200
             });
@@ -650,18 +655,56 @@ exports.auth = async  ( req, res ,_ ) => {
             return res.status(401).json({
                 message: 'Identifiant   Incorrect',
                 status: 'NOT OK',
-                data:  error,
+                data:  "Mot  de passe incorrect",
                 statusCode: 401
             });
         }
-    }).catch(error => {
-        return res.status(401).json({
-            message: 'Identifiant des  Incorrect',
-            status: 'NOT OK',
-            data: error,
-            statusCode: 401
-        });
+    }
+   } catch (error) {
+    return res.status(401).json({
+        message: 'Identifiant   Incorrect',
+        status: 'NOT OK',
+        data:  error,
+        statusCode: 401
     });
+   }
+
+
+    // if (req.body.phone != undefined) return authModel.findOne({
+    //     phone : req.body.phone
+    // }).then(result => {
+    //     console.log(result);
+    //     if (bcrytjs.compareSync(req.body.password, result.password)) {
+    //         const token = jwt.sign({
+    //             id_user: result.id,
+    //             role_user : result.role , 
+    //             phone_user : result.phone
+    //         }, process.env.JWT_SECRET, { expiresIn: '8784h' });
+    //         return res.json({
+    //             message: 'Connection réussssi',
+    //             status: 'OK',
+    //             data: {
+    //                 user : result ,
+    //                 token : result.token
+    //             },
+    //             statusCode: 200
+    //         });
+    //     } else {
+    //         return res.status(401).json({
+    //             message: 'Identifiant   Incorrect',
+    //             status: 'NOT OK',
+    //             data:  error,
+    //             statusCode: 401
+    //         });
+    //     }
+    // }).catch(error => {
+    //     return res.status(401).json({
+    //         message: 'Identifiant des  Incorrect',
+    //         status: 'NOT OK',
+    //         data: error,
+    //         statusCode: 401
+    //     });
+    // });
 }
 
 exports.authDashbord = async  ( req, res ,_ ) => {
