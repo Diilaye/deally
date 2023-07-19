@@ -15,7 +15,6 @@ const UserModel = new Schema({
         default :'active'
     },
 
-
     fournisseur : [{
         type: Schema.Types.ObjectId,
         ref: "users",
