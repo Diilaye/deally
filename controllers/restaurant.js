@@ -19,6 +19,8 @@ const populateObject = [{
 
 exports.store  =  async (req,res , next)  => {
 
+    
+
        try {
         let {
             adresse,
@@ -29,9 +31,9 @@ exports.store  =  async (req,res , next)  => {
             heureDebut,
             heureFin
         }  = req.body;
-
+    
         const restaurant  = restaurantModel();
-
+    
         restaurant.adresse  = adresse;
         restaurant.user  = req.user.id_user;
         restaurant.typeCuisine  = typeCuisine;
@@ -40,11 +42,11 @@ exports.store  =  async (req,res , next)  => {
         restaurant.description  = description;
         restaurant.heureDebut  = heureDebut;
         restaurant.heureFin  = heureFin;
-
+    
         const  restaurantSave =await restaurant.save();
-
-        const restaurantFind  = await restaurantModel.findById(restaurantSave._id).populate(populateObject).excec();
-
+    
+        const restaurantFind  = await restaurantModel.findById(restaurantSave._id).populate(populateObject).exec();
+    
         return res.status(201).json({
             message: ' creation réussi',
             status: 'OK',
