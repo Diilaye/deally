@@ -14,11 +14,11 @@ const restaurantModel = new Schema({
         ref: "users"
     },
 
-    platRestaurants : [{
-        type: Schema.Types.ObjectId,
-        ref :'plats',
-        default : []
-    }],
+    // platRestaurants : [{
+    //     type: Schema.Types.ObjectId,
+    //     ref :'plats',
+    //     default : []
+    // }],
 
     typeCuisine : [{
         type: String,
@@ -50,6 +50,10 @@ const restaurantModel = new Schema({
 
     description : {
         type : String
+    },
+    name : {
+        type : String,
+        unique  :  true
     },
 
     heureDebut : {

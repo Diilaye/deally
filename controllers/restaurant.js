@@ -10,20 +10,21 @@ const populateObject = [{
     populate : {
         path : 'point'
     }
-},{
-    path : 'platRestaurants',
-}  , {
+} , {
     path  :'logo'
+}, {
+    path  :'imagesGallerie'
 }];
 
 
 exports.store  =  async (req,res , next)  => {
-
+   
     
 
        try {
         let {
             adresse,
+            name,
             typeCuisine,
             imagesGallerie,
             logo,
@@ -35,6 +36,7 @@ exports.store  =  async (req,res , next)  => {
         const restaurant  = restaurantModel();
     
         restaurant.adresse  = adresse;
+        restaurant.name  = name;
         restaurant.user  = req.user.id_user;
         restaurant.typeCuisine  = typeCuisine;
         restaurant.imagesGallerie  = imagesGallerie;
