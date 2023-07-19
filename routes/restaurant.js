@@ -7,6 +7,7 @@ const routes = new Router();
 
 // Add routes
 routes.get('/', restaurantCtrl.all);
+routes.get('/one', restaurantCtrl.one);
 routes.post('/', restaurantCtrl.store);
 
 module.exports = routes;
