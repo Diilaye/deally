@@ -58,6 +58,8 @@ const carRoute = require('./routes/car');
 
 const restaurantRoute = require('./routes/restaurant');
 
+const platsRoute = require('./routes/plats');
+
 const deplacementVoitureMotoRouter = require('./routes/deplacement-voiture-moto');
 
 const authMidleweare = require('./midleweare/auth');
@@ -90,6 +92,8 @@ app.use('/v1/api/payments'  ,paymentsRouter);
 app.use('/v1/api/cars'  ,authMidleweare,carRoute);
 
 app.use('/v1/api/restaurant'  ,authMidleweare,restaurantRoute);
+
+app.use('/v1/api/plats'  ,authMidleweare,platsRoute);
 
 app.use('/v1/api/deplacement-moto-voiture'  , authMidleweare,deplacementVoitureMotoRouter);
 

@@ -5,12 +5,20 @@ require('dotenv').config({
     path: './.env'
 });
 
+
+
 const populateObject = [{
     path: 'adresse',
     populate : {
         path : 'point'
     }
-} , {
+} ,{
+    path :'platRestaurants' ,
+    populate :  {
+        path  :'imagesPlats'
+    }
+  
+}, {
     path  :'logo'
 }, {
     path  :'imagesGallerie'
@@ -67,7 +75,7 @@ exports.store  =  async (req,res , next)  => {
 
 }
 
-exports.updatte  =  async (req,res , next)  => {
+exports.update  =  async (req,res , next)  => {
    
     
 
@@ -143,18 +151,21 @@ exports.all = async (req, res, next) => {
 
 exports.one = async (req, res, next) => {
 
-
+    
+    const restaurant = await restaurantModel.findOne({
+        user : req.user.id_user
+    }).populate(populateObject).exec();
 
     try {
 
-        const restaurant = await restaurantModel.find({
+        const restaurant = await restaurantModel.findOne({
             user : req.user.id_user
         }).populate(populateObject).exec();
 
         return res.status(200).json({
             message: ' listage réussi',
             status: 'OK',
-            data: restaurant[0],
+            data: restaurant,
             statusCode: 201
         });
     } catch (error) {

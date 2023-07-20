@@ -9,6 +9,6 @@ const routes = new Router();
 routes.get('/', restaurantCtrl.all);
 routes.get('/one', restaurantCtrl.one);
 routes.post('/', restaurantCtrl.store);
-routes.put('/:id', restaurantCtrl.updatte);
+routes.put('/:id', restaurantCtrl.update);
 
 module.exports = routes;
