@@ -51,6 +51,7 @@ const restaurantModel = new Schema({
     description : {
         type : String
     },
+    
     name : {
         type : String,
         unique  :  true

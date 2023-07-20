@@ -67,6 +67,56 @@ exports.store  =  async (req,res , next)  => {
 
 }
 
+exports.updatte  =  async (req,res , next)  => {
+   
+    
+
+    try {
+     let {
+         adresse,
+         name,
+         typeCuisine,
+         imagesGallerie,
+         logo,
+         description,
+         heureDebut,
+         heureFin
+     }  = req.body;
+ 
+     const restaurant  = await restaurantModel.findById(req.params.id).exec();
+ 
+     restaurant.adresse  = adresse;
+     restaurant.name  = name;
+     restaurant.user  = req.user.id_user;
+     restaurant.typeCuisine  = typeCuisine;
+     restaurant.imagesGallerie  = imagesGallerie;
+     restaurant.logo  = logo;
+     restaurant.description  = description;
+     restaurant.heureDebut  = heureDebut;
+     restaurant.heureFin  = heureFin;
+ 
+     const  restaurantSave =await restaurant.save();
+ 
+     const restaurantFind  = await restaurantModel.findById(restaurantSave._id).populate(populateObject).exec();
+ 
+     return res.status(201).json({
+         message: ' mise à jour réussi',
+         status: 'OK',
+         data: restaurantFind,
+         statusCode: 200
+     });
+    } catch (error) {
+     res.json({
+         message: 'Erreur création',
+         statusCode: 404,
+         data: error,
+         status: 'NOT OK'
+     });
+    }
+
+
+}
+
 exports.all = async (req, res, next) => {
 
 
