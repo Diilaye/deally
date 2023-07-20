@@ -136,29 +136,3 @@ exports.all = async (req, res, next) => {
         });
     }
 }
-
-// exports.one = async (req, res, next) => {
-
-
-
-//     try {
-
-//         const restaurant = await restaurantModel.find({
-//             user : req.user.id_user
-//         }).populate(populateObject).exec();
-
-//         return res.status(200).json({
-//             message: ' listage réussi',
-//             status: 'OK',
-//             data: restaurant[0],
-//             statusCode: 201
-//         });
-//     } catch (error) {
-//         res.status(404).json({
-//             message: 'erreur mise à jour ',
-//             statusCode: 404,
-//             data: error,
-//             status: 'NOT OK'
-//         });
-//     }
-// }
