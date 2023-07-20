@@ -99,7 +99,7 @@ exports.updatte  =  async (req,res , next)  => {
  
      const restaurantFind  = await restaurantModel.findById(restaurantSave._id).populate(populateObject).exec();
  
-     return res.status(201).json({
+     return res.status(200).json({
          message: ' mise à jour réussi',
          status: 'OK',
          data: restaurantFind,
