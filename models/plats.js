@@ -26,6 +26,11 @@ const PlatsModel = new Schema({
         default :  []
     }],
 
+    complementPlats: [{
+        type: String,
+        default :  []
+    }],
+
     description : {
         type : String
     },

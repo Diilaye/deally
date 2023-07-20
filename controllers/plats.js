@@ -21,7 +21,8 @@ exports.store  =  async (req,res , next)  => {
             imagesPlats,
             description,
             name,
-            tempsDeCuisson
+            tempsDeCuisson,
+            complementPlats
         }  = req.body;
     
         const plat  = platModel();
@@ -35,6 +36,7 @@ exports.store  =  async (req,res , next)  => {
         plat.name  = name;
         plat.restaurants  =  restaurant._id ;
         plat.user  = req.user.id_user;
+        plat.complementPlats  = complementPlats;
         plat.typeCuisine  = typeCuisine;
         plat.description  = description;
         plat.imagesPlats  = imagesPlats;
@@ -77,7 +79,8 @@ exports.update  =  async (req,res , next)  => {
             imagesPlats,
             description,
             name,
-            tempsDeCuisson
+            tempsDeCuisson,
+            complementPlats
         }  = req.body;
     
         const plat  = platModel.findById(req.params.id).exec();
@@ -85,6 +88,7 @@ exports.update  =  async (req,res , next)  => {
         plat.name  = name;
         plat.user  = req.user.id_user;
         plat.typeCuisine  = typeCuisine;
+        plat.complementPlats  = complementPlats;
         plat.description  = description;
         plat.imagesPlats  = imagesPlats;
         plat.tempsDeCuisson  = tempsDeCuisson;
