@@ -21,6 +21,7 @@ exports.store  =  async (req,res , next)  => {
             imagesPlats,
             description,
             name,
+            price,
             tempsDeCuisson,
             complementPlats
         }  = req.body;
@@ -38,6 +39,7 @@ exports.store  =  async (req,res , next)  => {
         plat.user  = req.user.id_user;
         plat.complementPlats  = complementPlats;
         plat.typeCuisine  = typeCuisine;
+        plat.price  = price;
         plat.description  = description;
         plat.imagesPlats  = imagesPlats;
         plat.tempsDeCuisson  = tempsDeCuisson;
@@ -79,6 +81,7 @@ exports.update  =  async (req,res , next)  => {
             imagesPlats,
             description,
             name,
+            price,
             tempsDeCuisson,
             complementPlats
         }  = req.body;
@@ -88,6 +91,7 @@ exports.update  =  async (req,res , next)  => {
         plat.name  = name;
         plat.user  = req.user.id_user;
         plat.typeCuisine  = typeCuisine;
+        plat.price  = price;
         plat.complementPlats  = complementPlats;
         plat.description  = description;
         plat.imagesPlats  = imagesPlats;

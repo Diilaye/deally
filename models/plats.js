@@ -45,6 +45,11 @@ const PlatsModel = new Schema({
     },
 
 
+    price :  {
+        type : String,
+        default : '0'
+    },
+
     nombreCommandes :  {
         type : String,
         default : '0'
