@@ -86,8 +86,8 @@ exports.update  =  async (req,res , next)  => {
             complementPlats
         }  = req.body;
     
-        const plat  = platModel.findById(req.params.id).exec();
-
+        const plat  = await platModel.findById(req.params.id).exec();
+    
         plat.name  = name;
         plat.user  = req.user.id_user;
         plat.typeCuisine  = typeCuisine;
@@ -100,7 +100,7 @@ exports.update  =  async (req,res , next)  => {
         const  platSave =await plat.save();
     
         const platFind  = await platModel.findById(platSave._id).populate(populateObject).exec();
-
+    
         
     
         return res.status(200).json({
@@ -110,7 +110,7 @@ exports.update  =  async (req,res , next)  => {
             statusCode: 200
         });
        } catch (error) {
-        res.json({
+        res.status(404).json({
             message: 'Erreur création',
             statusCode: 404,
             data: error,
