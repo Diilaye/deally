@@ -152,15 +152,35 @@ exports.all = async (req, res, next) => {
 exports.one = async (req, res, next) => {
 
     
-    const restaurant = await restaurantModel.findOne({
-        user : req.user.id_user
-    }).populate(populateObject).exec();
 
     try {
 
         const restaurant = await restaurantModel.findOne({
             user : req.user.id_user
         }).populate(populateObject).exec();
+
+        return res.status(200).json({
+            message: ' listage réussi',
+            status: 'OK',
+            data: restaurant,
+            statusCode: 201
+        });
+    } catch (error) {
+        res.status(404).json({
+            message: 'erreur mise à jour ',
+            statusCode: 404,
+            data: error,
+            status: 'NOT OK'
+        });
+    }
+}
+exports.selectedRestaurant = async (req, res, next) => {
+
+    
+
+    try {
+
+        const restaurant = await restaurantModel.findById(req.params.id).populate(populateObject).exec();
 
         return res.status(200).json({
             message: ' listage réussi',
