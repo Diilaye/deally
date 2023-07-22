@@ -255,18 +255,19 @@ exports.orderShop = async (req  , res ,next ) => {
 }
 
 exports.update = async  (req  , res ,next ) => {
-    let   { quantite , price  } = req.body ;
+    let   { quantite , price , statusClient  } = req.body ;
 
     
 
     const item = await  itemOrerRestaurantModel.findById(req.params.id).populate(populateObject).exec();
 
     if (quantite!=undefined) {
-
         item.quantite = quantite;
         item.priceTotal = price;
+    } 
 
-
+    if (statusClient!=undefined) {
+        item.statusClient = statusClient;
     } 
 
     const itemSave = await item.save();
