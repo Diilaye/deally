@@ -212,7 +212,7 @@ exports.orderTransport  =  async ( req, res ,next) =>  {
 exports.orderClient = async (req  , res ,next ) => {
    
     try {
-        const item = await itemOrerModel.find({
+        const item = await itemOrerRestaurantModel.find({
             statusClient :  'CREATE',
             client : req.user.id_user
         }).populate(populateObject).exec(); 
@@ -232,11 +232,11 @@ exports.orderClient = async (req  , res ,next ) => {
     }
 }
 
-exports.orderShop = async (req  , res ,next ) => {
+exports.orderRestaurant = async (req  , res ,next ) => {
    
     try {
-        const item = await itemOrerModel.find({
-            shop : req.user.id_user
+        const item = await itemOrerRestaurantModel.find({
+            restaurant : req.user.id_user
         }).populate(populateObject).exec(); 
         return res.status(200).json({
             message: 'item trouvée avec succes',
