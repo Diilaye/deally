@@ -5,20 +5,16 @@ const platsModel = require('../models/plats');
 const authModel  = require('../models/auth');
 
 const populateObject = [{
-    path: 'plats',
+    path: 'platOrder',
     populate : {
         path: 'imagesPlats',
     }
     
-},{
-    path : 'livraison',
-    populate :  {
-        path :'point'
-    }
 }];
 
 exports.store = async (req, res ,next ) => {
     
+   
    
 
 
@@ -34,49 +30,45 @@ exports.store = async (req, res ,next ) => {
             quantite ,
         
             priceTotal  } = req.body ;
-
+    
         console.log(req.body);
-
+    
         const p  = await platsModel.findById(platOrder).exec();
-
-
-
+    
+    
+    
         if (p) {
-
+    
             const item = itemOrerRestaurantModel();
-
-
-            item.product = product ;
-
+    
+    
+            item.platOrder = platOrder ;
+    
             item.complements = complements ;
-
+    
             item.quantite = quantite ;
-
-            item.typePaiment = typePaiment  ;
-
+    
             item.priceTotal = priceTotal ;
-            
-            
-
+    
             item.client = req.user.id_user ;
-
+    
             item.restaurant = p.restaurants ;
-
+    
             //TODO mettre shop sur orderId
-
+    
             const saveItem = await  item.save();
-
+    
             const saveItemFind = await itemOrerRestaurantModel.findById(saveItem._id).populate(populateObject).exec();
-
+    
         
-
+    
             return res.status(201).json({
                 message: 'item crée avec succes',
                 status: 'OK',
                 data: saveItemFind,
                 statusCode: 201
             });
-
+    
         }else {
             return res.status(400).json({
                 message: 'Erreur creation',
@@ -85,7 +77,6 @@ exports.store = async (req, res ,next ) => {
                 statusCode: 400
             })
         }
-
         
 
     } catch (error) {
@@ -102,7 +93,7 @@ exports.store = async (req, res ,next ) => {
 exports.all = async (req  , res ,next ) => {
     
     try {
-        const items = await itemOrerModel.find(req.query).populate(populateObject).exec(); 
+        const items = await itemOrerRestaurantModel.find(req.query).populate(populateObject).exec(); 
         res.status(200).json({
             message: 'items trouvée avec succes',
             status: 'OK',
@@ -122,7 +113,7 @@ exports.all = async (req  , res ,next ) => {
 
 exports.one = async (req  , res ,next ) => {
     try {
-        const item = await itemOrerModel.findById(req.params.id).populate(populateObject).exec(); 
+        const item = await itemOrerRestaurantModel.findById(req.params.id).populate(populateObject).exec(); 
         res.status(200).json({
             message: 'item trouvée avec succes',
             status: 'OK',
@@ -142,7 +133,7 @@ exports.one = async (req  , res ,next ) => {
 exports.panierClient = async (req  , res ,next ) => {
    
     try {
-        const item = await itemOrerModel.find({
+        const item = await itemOrerRestaurantModel.find({
             client : req.user.id_user,
             statusClient :  'PANNIER'
         }).populate(populateObject).exec(); 
