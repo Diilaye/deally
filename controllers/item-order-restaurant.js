@@ -255,44 +255,21 @@ exports.orderShop = async (req  , res ,next ) => {
 }
 
 exports.update = async  (req  , res ,next ) => {
-    let   { quantite , statusShop , statusClient   , pourcentage , usine } = req.body ;
+    let   { quantite , price  } = req.body ;
 
-    console.log(statusShop);
     
 
-    const item = await  itemOrerModel.findById(req.params.id).populate(populateObject).exec();
+    const item = await  itemOrerRestaurantModel.findById(req.params.id).populate(populateObject).exec();
 
     if (quantite!=undefined) {
+
         item.quantite = quantite;
+        item.priceTotal = price;
+
+
     } 
 
-    if (usine!=undefined) {
-        item.usine = usine;
-    } 
-
-    if (statusShop != undefined) {
-        
-        item.statusShop = statusShop;
-    } 
-
-    if (statusClient!=undefined) {
-
-        item.statusClient = statusClient;
-    }  
-    
-    if (pourcentage!=undefined) {
-
-        item.preparating_pourcentage = pourcentage;
-    }  
-
-       
     const itemSave = await item.save();
-
-    if (statusShop =="PREPARING") {
-        const  user = await authModel.findById(req.body.usine).exec();
-        user.ordersItems.push(itemSave._id);
-        const  userUpdate = await user.save();
-    }
 
       return  res.status(200).json({
             message: 'mise à jour réussi',
@@ -306,7 +283,7 @@ exports.update = async  (req  , res ,next ) => {
 
 }
 
-exports.delete = (req  , res ,next ) => itemOrerModel.findByIdAndDelete(req.params.id).then(result => {
+exports.delete = (req  , res ,next ) => itemOrerRestaurantModel.findByIdAndDelete(req.params.id).then(result => {
     res.status(200).json({
         message: 'supréssion réussi',
         status: 'OK',
