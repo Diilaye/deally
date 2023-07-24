@@ -29,6 +29,44 @@ const populateObject = [{
             }
         ]
     }]
+},{
+    path :'restaurant' ,
+    populate : [{
+        path: 'adresse',
+        populate : {
+            path : 'point'
+        }
+    } ,{
+        path :'platRestaurants' ,
+        populate :  [ {
+            path  :'imagesPlats'
+        },{
+            path : 'restaurants',
+            populate : [
+                {
+                    path: 'adresse',
+                    populate : {
+                        path : 'point'
+                    }
+                } ,{
+                    path :'platRestaurants' ,
+                    populate :  {
+                        path  :'imagesPlats'
+                    }
+                  
+                }, {
+                    path  :'logo'
+                }, {
+                    path  :'imagesGallerie'
+                }
+            ]
+        }]
+      
+    }, {
+        path  :'logo'
+    }, {
+        path  :'imagesGallerie'
+    }]
 }];
 
 exports.store = async (req, res ,next ) => {
