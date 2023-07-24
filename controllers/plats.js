@@ -8,6 +8,14 @@ require('dotenv').config({
 
 const populateObject = [ {
     path  :'imagesPlats'
+},{
+    path : "restaurants",
+    populate : [{
+        path :'adresse',
+        populate : {
+            path : 'point'
+        }
+    }]
 }];
 
 

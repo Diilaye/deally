@@ -6,9 +6,17 @@ const authModel  = require('../models/auth');
 
 const populateObject = [{
     path: 'platOrder',
-    populate : {
-        path: 'imagesPlats',
-    }
+    populate :[ {
+        path  :'imagesPlats'
+    },{
+        path : "restaurants",
+        populate : [{
+            path :'adresse',
+            populate : {
+                path : 'point'
+            }
+        }]
+    }]
     
 }];
 

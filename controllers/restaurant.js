@@ -14,9 +14,17 @@ const populateObject = [{
     }
 } ,{
     path :'platRestaurants' ,
-    populate :  {
+    populate : [ {
         path  :'imagesPlats'
-    }
+    },{
+        path : "restaurants",
+        populate : [{
+            path :'adresse',
+            populate : {
+                path : 'point'
+            }
+        }]
+    }]
   
 }, {
     path  :'logo'
