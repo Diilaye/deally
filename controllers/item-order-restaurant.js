@@ -6,67 +6,10 @@ const authModel  = require('../models/auth');
 
 const populateObject = [{
     path: 'platOrder',
-    populate : [ {
-        path  :'imagesPlats'
-    },{
-        path : 'restaurants',
-        populate : [
-            {
-                path: 'adresse',
-                populate : {
-                    path : 'point'
-                }
-            } ,{
-                path :'platRestaurants' ,
-                populate :  {
-                    path  :'imagesPlats'
-                }
-              
-            }, {
-                path  :'logo'
-            }, {
-                path  :'imagesGallerie'
-            }
-        ]
-    }]
-},{
-    path :'restaurant' ,
-    populate : [{
-        path: 'adresse',
-        populate : {
-            path : 'point'
-        }
-    } ,{
-        path :'platRestaurants' ,
-        populate :  [ {
-            path  :'imagesPlats'
-        },{
-            path : 'restaurants',
-            populate : [
-                {
-                    path: 'adresse',
-                    populate : {
-                        path : 'point'
-                    }
-                } ,{
-                    path :'platRestaurants' ,
-                    populate :  {
-                        path  :'imagesPlats'
-                    }
-                  
-                }, {
-                    path  :'logo'
-                }, {
-                    path  :'imagesGallerie'
-                }
-            ]
-        }]
-      
-    }, {
-        path  :'logo'
-    }, {
-        path  :'imagesGallerie'
-    }]
+    populate : {
+        path: 'imagesPlats',
+    }
+    
 }];
 
 exports.store = async (req, res ,next ) => {
