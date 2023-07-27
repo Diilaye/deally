@@ -48,6 +48,8 @@ const fileRouter = require('./routes/file');
 
 const orderRouter = require('./routes/orders');
 
+const orderRestaurantRouter = require('./routes/orders-restaurants');
+
 const transactionRouter = require('./routes/transaction');
 
 const placeRouter = require('./routes/address');
@@ -86,6 +88,8 @@ app.use('/v1/api/order-items-restaurant'  , authMidleweare,orderItemRestaurantRo
 app.use('/v1/api/transactions', authMidleweare ,transactionRouter);
 
 app.use('/v1/api/orders'  , authMidleweare,orderRouter);
+
+app.use('/v1/api/order-restaurant'  , authMidleweare,orderRestaurantRouter);
 
 app.use('/v1/api/address'  , authMidleweare,placeRouter);
 

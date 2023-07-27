@@ -80,8 +80,6 @@ exports.store = async (req, res ,next)  => {
 
         someoneElse.phone=someonePhone;
 
-        someoneElse.photo= someonePhoto;
-
         const someoneSave  = await  someoneElse.save();
 
         deplacement.someoneElse = someoneSave._id;

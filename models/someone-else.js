@@ -15,11 +15,6 @@ const SomeoneElseModel = new Schema({
     phone : {
         type: String,
     },
-
-    photo : {
-        type: Schema.Types.ObjectId,
-        ref :'media'
-    },
   
     date: {
         type: Date,

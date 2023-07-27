@@ -1,38 +1,11 @@
-const ordersModel = require('../models/order');
-const ordersItemsModel = require('../models/order-item');
+const ordersModel = require('../models/order-restaurant');
+const ordersItemsModel = require('../models/order-item-restaurant');
 const orderid = require('order-id')('diikaanedevDeally');
 var dateTime = require('node-datetime');
 
 const populateObject =[{
     path : 'items',
-    populate : [
-        {
-            path: 'product',
-            populate :  [
-                {
-                    path: 'category',
-                    select: 'title',
-                }, {
-                    path: 'address',
-                }, {
-                    path: 'images'
-                }, {
-                    path: 'pack_price'
-                }
-            ]
-        },
-        {
-            path: 'livraison',
-            populate :  {
-                path  : 'point'
-            }
-        }
-    ]
-},{
-    path: 'livraison',
-    populate :  {
-        path  : 'point'
-    }
+   
 }];
 
 
@@ -42,10 +15,28 @@ exports.store = async (req, res, next) => {
 
     try {
 
-        console.log('body => ' , req.body);
+        
         
        
-        let { items, price, livraison , typePaiment  , paiStatus } = req.body;
+        let { 
+            items,
+    
+            price ,
+        
+        
+            priceLivraison ,
+            
+            status,
+        
+            livraison,
+
+            typePaiment ,
+        
+            typeLivraison ,
+
+            someoneElse,
+        
+        } = req.body;
     
         const orderss = await ordersModel.find({}).exec();
     
@@ -61,13 +52,24 @@ exports.store = async (req, res, next) => {
     
         const id = orderid.generate();
     
+        order.client = req.user.id_user;
+
         order.items = items;
     
         order.price = price;
+
+        order.price = price;
     
-        order.client = req.user.id_user;
-    
-        order.livraison = livraison;
+        order.priceLivraison = priceLivraison;
+
+        if (typeLivraison == "1") {
+             order.typeLivraison = typeLivraison;
+             order.livraison = livraison;
+        } 
+
+        if (someoneElse !=undefined) {
+            order.someoneElse = someoneElse;
+        }
     
         order.reference = d;
     
