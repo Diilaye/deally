@@ -50,6 +50,8 @@ exports.addGerantRestaurant  = async (req,res,next) =>  {
             
             auth.firstName = req.body.prenom ;
 
+            auth.password = passwordCrypt ;
+
             auth.role = "gerant-restaurant" ;
 
             auth.userParent = req.user.id_user;
