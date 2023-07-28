@@ -1,5 +1,5 @@
 const restaurantModel = require('../models/restaurant');
-
+const authModel = require('../models/auth');
 
 require('dotenv').config({
     path: './.env'
@@ -182,6 +182,36 @@ exports.one = async (req, res, next) => {
         });
     }
 }
+
+exports.oneGerant = async (req, res, next) => {
+
+    
+
+    try {
+
+        const auth = await authModel.findById(req.user.id_user).exec();
+        
+        const restaurant = await restaurantModel.findOne({
+            user : auth.userParent
+        }).populate(populateObject).exec();
+
+        return res.status(200).json({
+            message: ' listage réussi',
+            status: 'OK',
+            data: restaurant,
+            statusCode: 201
+        });
+    } catch (error) {
+        res.status(404).json({
+            message: 'erreur mise à jour ',
+            statusCode: 404,
+            data: error,
+            status: 'NOT OK'
+        });
+    }
+}
+
+
 exports.selectedRestaurant = async (req, res, next) => {
 
     
