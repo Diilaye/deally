@@ -48,7 +48,7 @@ exports.addGerantRestaurant  = async (req,res,next) =>  {
             
             auth.lastName = req.body.nom ;
             
-            auth.firstName = req.body.firstName ;
+            auth.firstName = req.body.prenom ;
 
             auth.userParent = req.user.id_user;
 
