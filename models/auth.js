@@ -31,6 +31,11 @@ const UserModel = new Schema({
         default : []
     }],
 
+    userParent : {
+        type: Schema.Types.ObjectId,
+        ref: "users",
+    },
+
 
     password: {
         type: String,
@@ -42,7 +47,7 @@ const UserModel = new Schema({
     
     role: {
         type : String,
-        enum: ['admin', 'super', 'fournisseur', 'commercant', 'transporteur','moto', 'voiture','logisticien','particulier','restaurant','grossiste','usine','hotel','ferry','bus'],
+        enum: ['admin', 'super', 'fournisseur', 'commercant', 'transporteur','moto', 'voiture','logisticien','particulier','restaurant','gerant-restaurant','grossiste','usine','hotel','ferry','bus'],
         default: 'particulier'
     },
 

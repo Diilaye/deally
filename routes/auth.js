@@ -22,6 +22,7 @@ routes.get('/usines' , authMidleweare , authCtrl.getUsine);
 routes.post('/validCode' , authCtrl.verifCode);
 routes.post('/', authCtrl.store);
 routes.post('/auth', authCtrl.auth);
+routes.post('/add-gerant', authMidleweare,authCtrl.addGerantRestaurant);
 routes.post('/auth-dashbord', authCtrl.authDashbord);
 routes.put('/', authMidleweare , authCtrl.update);
 routes.delete('/', authMidleweare ,authCtrl.delete);

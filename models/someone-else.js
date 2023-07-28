@@ -8,9 +8,7 @@ const SomeoneElseModel = new Schema({
         type: String,
     },
 
-    prenom : {
-        type: String,
-    },
+   
 
     phone : {
         type: String,

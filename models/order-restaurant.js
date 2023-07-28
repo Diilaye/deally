@@ -45,7 +45,7 @@ const orderRestaurantModel = new Schema({
     typeLivraison : {
         type : String,
         enum: ['0','1'],
-        default: '0' // 0=> "sur  place" ,  "1" => Livraison
+        default: '0' // 0  => "sur  place" ,  "1" => Livraison
     },
 
     reference : {

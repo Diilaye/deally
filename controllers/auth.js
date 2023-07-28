@@ -35,6 +35,45 @@ const api_secret = 'cmnxknpmgkf4b2ru6m7wn6b8cgurnfsgwa3csqypbtbbsyf9rzfpn8mptts2
 
 
 
+exports.addGerantRestaurant  = async (req,res,next) =>  {
+
+        try {
+
+
+            const passwordCrypt = bcrytjs.hashSync("passer123", salt);
+        
+            const auth = authModel() ;
+
+            auth.phone = req.body.phone ;
+            
+            auth.lastName = req.body.nom ;
+            
+            auth.firstName = req.body.firstName ;
+
+            auth.userParent = req.user.id_user;
+
+            const authSave  =  await  auth.save();
+
+           return res.json({
+                message: 'Client creer avec succes',
+                status: 'OK',
+                data: authSave,
+                statusCode: 201
+            });
+
+
+        } catch (error) {
+            return res.status(404).json({
+            message: 'Erreur création',
+            statusCode: 404,
+            data:  error,
+            status: 'NOT OK'
+          });
+        }
+
+}
+
+
 
 exports.store = async (req , res , next) => {
     
