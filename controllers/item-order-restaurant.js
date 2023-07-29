@@ -1,5 +1,7 @@
 const itemOrerRestaurantModel = require('../models/order-item-restaurant');
 
+const restaurantModel = require('../models/restaurant');
+
 const platsModel = require('../models/plats');
 
 const authModel  = require('../models/auth');
@@ -267,10 +269,14 @@ exports.orderRestaurantByGerant = async (req  , res ,next ) => {
     try {
 
         const auth = await  authModel.findById(req.user.id_user).exec();
-
-        const item = await itemOrerRestaurantModel.find({
-            restaurant : auth.id
+        
+        const restaurantFind = await  restaurantModel.findOne({
+            user  : auth.userParent
+        }).exec();
+         const item = await itemOrerRestaurantModel.find({
+            restaurant : restaurantFind.id
         }).populate(populateObject).exec(); 
+
         return res.status(200).json({
             message: 'item trouvée avec succes',
             status: 'OK',
