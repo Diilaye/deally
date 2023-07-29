@@ -13,6 +13,7 @@ const routes = express.Router();
 routes.get('/' ,itemOrderCtrl.panierClient);
 routes.get('/orderClient' ,itemOrderCtrl.orderClient);
 routes.get('/orderRestaurant' ,itemOrderCtrl.orderRestaurant);
+routes.get('/orderRestaurantByGerant' ,itemOrderCtrl.orderRestaurantByGerant);
 routes.get('/:id' ,itemOrderCtrl.one);
 routes.post('/' , itemOrderCtrl.store);
 routes.put('/:id' , itemOrderCtrl.update);

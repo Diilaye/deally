@@ -262,6 +262,31 @@ exports.orderRestaurant = async (req  , res ,next ) => {
     }
 }
 
+exports.orderRestaurantByGerant = async (req  , res ,next ) => {
+   
+    try {
+
+        const auth = await  authModel.findById(req.user.id_user).exec();
+
+        const item = await itemOrerRestaurantModel.find({
+            restaurant : auth.id
+        }).populate(populateObject).exec(); 
+        return res.status(200).json({
+            message: 'item trouvée avec succes',
+            status: 'OK',
+            data: item,
+            statusCode: 200
+        }) 
+    } catch (error) {
+        res.json({
+            message: 'item non trouvée',
+            status: 'OK',
+            data: error,
+            statusCode: 400
+        })
+    }
+}
+
 exports.update = async  (req  , res ,next ) => {
     let   { quantite , price , statusClient  } = req.body ;
 
