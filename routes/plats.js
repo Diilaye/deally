@@ -9,6 +9,7 @@ const routes = new Router();
 routes.get('/', platsCtrl.all);
 // routes.get('/one', platsCtrl.one);
 routes.post('/', platsCtrl.store);
+routes.post('/gerant', platsCtrl.storePlatByGerant);
 routes.put('/:id', platsCtrl.update);
 
 module.exports = routes;

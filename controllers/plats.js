@@ -1,5 +1,6 @@
 const platModel = require('../models/plats');
 const restaurantModel = require('../models/restaurant');
+const authModel  = require('../models/auth');
 
 
 require('dotenv').config({
@@ -74,6 +75,67 @@ exports.store  =  async (req,res , next)  => {
             status: 'NOT OK'
         });
        }
+
+
+}
+
+exports.storePlatByGerant  =  async (req,res , next)  => {
+   
+    
+
+    try {
+     let {
+         typeCuisine,
+         imagesPlats,
+         description,
+         name,
+         price,
+         tempsDeCuisson,
+         complementPlats
+     }  = req.body;
+ 
+    const auth  =  await authModel.findById(req.user.id_user).exec();
+
+     const plat  = platModel();
+
+     const  restaurant =  await restaurantModel.findOne({
+         user : auth.userParent
+     }).exec();
+ 
+
+
+     plat.name  = name;
+     plat.restaurants  =  restaurant._id ;
+     plat.user  = req.user.id_user;
+     plat.complementPlats  = complementPlats;
+     plat.typeCuisine  = typeCuisine;
+     plat.price  = price;
+     plat.description  = description;
+     plat.imagesPlats  = imagesPlats;
+     plat.tempsDeCuisson  = tempsDeCuisson;
+ 
+     const  platSave =await plat.save();
+ 
+     const platFind  = await platModel.findById(platSave._id).populate(populateObject).exec();
+
+     restaurant.platRestaurants.push(platSave._id);
+     
+     const restaurantSave =  await restaurant.save();
+ 
+     return res.status(201).json({
+         message: ' creation réussi',
+         status: 'OK',
+         data: platFind,
+         statusCode: 201
+     });
+    } catch (error) {
+     res.json({
+         message: 'Erreur création',
+         statusCode: 404,
+         data: error,
+         status: 'NOT OK'
+     });
+    }
 
 
 }
